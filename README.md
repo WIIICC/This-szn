@@ -4,4 +4,3 @@ This Szn is a 2026/27 Big 5 sample (top clubs). Salaries are Capology estimates.
 
 The live site is [https://this-szn.vercel.app](https://this-szn.vercel.app).
 
-This is a static site with no build step. Open `index.html` in a browser, or serve the repository root as static files.
