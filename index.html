@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>THIS SZN — 2026/27</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app">
+    <aside class="rail" id="rail">
+      <header class="brand">
+        <div class="wordmark">THIS SZN</div>
+        <p class="tagline">2026/27 · Big 5 · sample of the top clubs</p>
+      </header>
+
+      <label class="search-wrap">
+        <span class="sr-only">Search</span>
+        <input type="search" id="search" placeholder="Search name, club, country" autocomplete="off" />
+      </label>
+
+      <nav class="league-nav" id="league-nav" aria-label="Leagues and clubs"></nav>
+    </aside>
+
+    <main class="main" id="main">
+      <div class="list-header">
+        <div class="list-meta" id="list-meta">Loading…</div>
+        <button type="button" class="back-btn hidden" id="back-btn">← Squad list</button>
+      </div>
+
+      <div id="list-view">
+        <div class="col-head" aria-hidden="true">
+          <span class="ch-player">Player</span>
+          <span class="ch-club">Club</span>
+          <span class="ch-age">Age</span>
+          <span class="ch-salary">Gross / yr</span>
+          <span class="ch-goals">G</span>
+        </div>
+        <ul class="player-list" id="player-list"></ul>
+        <p class="empty hidden" id="empty">No players match.</p>
+      </div>
+
+      <article class="detail hidden" id="detail"></article>
+    </main>
+  </div>
+
+  <footer class="site-footer">
+    Salaries are Capology estimates, not official club figures. Stats are from worldfootball.net for 2026/27.
+    Photos are Wikimedia Commons, license on each player. No number on this site was estimated by the page itself.
+  </footer>
+
+  <script src="data-part-01.js"></script>
+  <script src="data-part-02.js"></script>
+  <script src="data-part-03.js"></script>
+  <script src="data-part-04.js"></script>
+  <script src="data-part-05.js"></script>
+  <script src="data-part-06.js"></script>
+  <script src="data-part-07.js"></script>
+  <script src="data-part-08.js"></script>
+  <script src="data-part-09.js"></script>
+  <script src="data-part-10.js"></script>
+  <script src="data-part-11.js"></script>
+  <script src="data-part-12.js"></script>
+  <script src="data-part-13.js"></script>
+  <script src="data-part-14.js"></script>
+  <script src="data-part-15.js"></script>
+  <script src="data-part-16.js"></script>
+  <script src="data-part-17.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
