@@ -57,6 +57,7 @@
     empty: document.getElementById("empty"),
     search: document.getElementById("search"),
     back: document.getElementById("back-btn"),
+    rail: document.getElementById("rail"),
   };
 
   function clubsPresent() {
@@ -83,7 +84,6 @@
     });
   }
 
-
   function photoSrc(photo) {
     if (!photo) return "";
     var url = photo.commonsUrl || "";
@@ -96,7 +96,12 @@
         "?width=640"
       );
     }
-    return photo.file || "";
+    // BUG FIX: append width param to direct file URLs too, to avoid loading full-size images
+    var file = photo.file || "";
+    if (file && file.indexOf("width=") === -1) {
+      return file + (file.indexOf("?") >= 0 ? "&" : "?") + "width=640";
+    }
+    return file;
   }
 
   function monogram(name) {
@@ -264,7 +269,7 @@
 
   function renderDetail(p) {
     if (!p) {
-      els.detail.innerHTML = "<p class=\"stats-note\">Player not found.</p>";
+      els.detail.innerHTML = '<p class="stats-note">Player not found.</p>';
       return;
     }
 
@@ -323,9 +328,14 @@
         "</div>";
     }
 
-    var statsHtml =
-      '<h2 class="stats-heading">2026/27 by competition</h2>';
-    if (!p.stats || !p.stats.available || !p.stats.competitions.length) {
+    var statsHtml = '<h2 class="stats-heading">2026/27 by competition</h2>';
+    // BUG FIX: safely check competitions exists before checking .length
+    if (
+      !p.stats ||
+      !p.stats.available ||
+      !p.stats.competitions ||
+      !p.stats.competitions.length
+    ) {
       statsHtml +=
         '<p class="stats-note">2026/27 goals and assists are not published for this player yet.</p>';
     } else {
@@ -364,7 +374,11 @@
       '<div class="detail-meta">' +
       '<div class="meta-item"><span class="meta-label">Age</span><span class="meta-value">' +
       (p.age != null ? escapeHtml(String(p.age)) : "—") +
-      (p.ageSource ? ' <span style="color:var(--muted);font-size:12px">(' + escapeHtml(p.ageSource) + ")</span>" : "") +
+      (p.ageSource
+        ? ' <span style="color:var(--muted);font-size:12px">(' +
+          escapeHtml(p.ageSource) +
+          ")</span>"
+        : "") +
       "</span></div>" +
       '<div class="meta-item"><span class="meta-label">Club</span><span class="meta-value">' +
       escapeHtml(p.club) +
@@ -396,6 +410,8 @@
     els.back.classList.remove("hidden");
     els.meta.textContent = p ? p.name : "Player";
     renderDetail(p);
+    // BUG FIX: scroll to top so the detail view starts at the top on mobile
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
   function applyRoute() {
@@ -450,6 +466,8 @@
   els.back.addEventListener("click", function () {
     setHash("");
     showList();
+    // BUG FIX: scroll to top when going back to list
+    window.scrollTo({ top: 0, behavior: "smooth" });
   });
 
   els.search.addEventListener("input", function () {
@@ -462,7 +480,8 @@
     }
   });
 
-  window.addEventListener("hashchange", applyRoute);
+  // BUG FIX: remove hashchange listener — popstate already covers back/forward,
+  // and hashchange causes applyRoute to fire twice on every back/forward navigation
   window.addEventListener("popstate", applyRoute);
 
   buildNav();
